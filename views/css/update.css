@@ -1,0 +1,104 @@
+.pop_up_close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 21px;
+    cursor: pointer;
+  }
+  
+  .list_area{
+    display: none;
+    width:100%;
+    height: 100%;
+    position:fixed;
+    left: 0;
+    top:0;
+    background-color:rgba(0, 0,0, .8);
+    z-index:2 ;
+    
+  }
+  
+  .list_area.active{
+    display: block;
+  }
+  .list_area_container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .list_area_body{
+    margin:auto;
+    width: 500px;
+    background-color:white;
+    border-radius:10px;
+    text-align: center;
+    padding: 100px 15px 110px 15px;
+    position: relative;
+  }
+  
+  
+  .list_services{
+    display: none;
+    width:100%;
+    height: 100%;
+    position:fixed;
+    left: 0;
+    top:0;
+    background-color:rgba(0, 0,0, .8);
+    z-index:2 ;
+    
+  }
+  
+  .list_services.active{
+    display: block;
+  }
+  .list_services_container{
+    
+   
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  
+    
+  }
+  
+  .list_services_body{
+    margin: auto;
+    width: 500px;
+    background-color:white;
+    border-radius:10px;
+    text-align: center;
+    padding: 100px 15px 110px 15px;
+    position: relative;
+    top: 20%;
+  }
+
+
+
+/* Style the buttons that are used to open the tab content */
+.list_services_container button {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  margin: -125px 0 0 -125px;
+    background-color: #008EB0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  
+    
+}
+
+/* Change background color of buttons on hover */
+.list_services_container button:hover {
+    background-color: #fffc;
+}
+  
+.list_services_container button.active {
+  background-color: rgb(52, 170, 228);
+}
+  

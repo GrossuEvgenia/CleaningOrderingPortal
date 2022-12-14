@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>Золушка</title>
+
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+	<link rel="stylesheet" href="../css/orders.css" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg"  style=" background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Золушка</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Компании</a>
+        </li>
+	
+		
+	  </ul>
+    </div>
+    {%if session.id_executor %}
+    <a class ="nav-link" href="/executor_cabinet_" id="executor_cabinet_">{{session.name_company}}</a>
+    <a class ="nav-link" href="/log_out" id="log_out">Выйти </a>
+    {% else %}
+    <a class ="nav-link" href="#" id="open_pop_up">Войти </a>
+    <a class ="nav-link" href="#" id="open_pop_up1">Регистрация </a>
+    {% endif %}
+	</div>
+</nav>
+</header>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css " rel ="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " ></script>
+
+<main>
+  <div class="pop_up" id="pop_up">
+    <div class="pop_up_container" id="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            
+                <h1 class="fw-bold mb-0 fs-2">Войти</h1>
+              
+            <form action="http://localhost:8000/executor_cabinet" method="post" >
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="name@example.com">
+                    <label for="email">Введите адресс электронной почты</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Password">
+                    <label for="password">Пароль</label>
+                  </div>
+                  <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Войти</button>
+            </form>
+            <div class="pop_up_close" id="pop_up_close">
+                &#10006
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pop_up1" id="pop_up1">
+    <div class="pop_up_container" id="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            
+                <h1 class="fw-bold mb-0 fs-2">Регистрация</h1>
+              
+            <form action="http://localhost:8000/registration" method="post" location="http://localhost:8000/executor_cabinet">
+                <div class="form-floating mb-3">
+                    <select class="form-control"  id="id_type_executor" name="id_type_executor" >
+                        {% for types in type_executor%}
+                        <option  value='{{types.id_type_executor}}'>{{types.name_type}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control rounded-3" name="name_company" id="name_company" placeholder="название">
+                    <label for="name_company">Введите название компании или ФИО</label>
+                  </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control rounded-3"  name="email" id="email" placeholder="name@example.com">
+                    <label for="email">Введите ваш email</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" name="password" id="password" placeholder="парроль">
+                    <label for="password"> Введите ваш пароль</label>
+                  </div>
+                  <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Зарегистрироваться</button>
+            </form>
+            <div class="pop_up_close" id="pop_up_close1">
+                &#10006
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="container py-3">
+    <div class="row flex-lg-row-reverse align-items-center  ">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="uploads/{{executor.photo_link}}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">{{executor.name_company}}</h1>
+        <p class="lead">{{executor.description}}</p>
+
+        <p><h2 class="display-7 fw-bold"> Cписок районов обслуживания</h2>
+        {% for arlst in aria_list%}
+        <ul class="list-group">
+           <li class="list-group-item">{{arlst.name_aria}}</li>
+          </ul>
+        {% endfor %}  
+        </p>
+				<p><h2 class="display-7 fw-bold ">Список услуг</h2>
+          <ul class="list-group">
+            {%for serv in service_list%}
+        <li class="list-group-item d-flex justify-content-between align-items-center">{{serv.name_services}}
+            <span class="badge bg-primary rounded-pill">{{serv.price}} руб/час</span>
+        </li>
+        {% endfor%}
+      </ul>
+      
+      </p>
+<p>
+<h2 class="display-7 fw-bold">Контакты</h2>
+<p> Телефон: {{executor.phone_number}}</p>
+<p>email:{{executor.email}}</p>
+</p>
+</div>
+	</div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+         <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" id="open_order">Оформить заказ</button>
+        </div>
+        </div>
+        
+        
+        <div class="order" id="order">
+          <div class="order_container" id="order_container">
+              <div class="order_body" id="order_body">
+                  
+                      <h1 class="fw-bold mb-0 fs-2">Оформить заказ</h1>
+                    
+                  <form action="http://localhost:8000/add_order" method="post">
+                     
+                      <div class="form-floating mb-3">
+                        <input type="hidden" name="id_executor" id="id_executor" value="{{executor.id_executor}}">
+                          <input type="text" class="form-control rounded-3" name="fio" id="fio" placeholder="ФИО">
+                          <label for="name_company">Введите ваше ФИО</label>
+                        </div>
+                      <div class="form-floating mb-3">
+                          <input type="email" class="form-control rounded-3"  name="email" id="email" placeholder="name@example.com">
+                          <label for="email">Введите ваш email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="number" class="form-control rounded-3" name="phone_number" id="phone_number" placeholder="номер телефона">
+                          <label for="password"> Введите ваш номер телефона</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <ul class="list-group">
+                          <label > Выберите необходимые услуги</label>
+                          {%for s in service_list%}
+                          <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" name="id_list_services" id="id_list_services" value="{{s.id_list_services}}" aria-label="...">
+                            {{s.name_services}} {{s.price}} руб/час
+                          </li>
+                          {% endfor %}
+                          </ul>
+                           </div>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control" cols="60" rows="10"  aria-label="With textarea" name="text_otder" id="text_order"></textarea>
+                            <label for="name_company">Примечания к заказу</label>
+                        </div>
+                        
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Подтвердить</button>
+                  </form>
+                  <div class="pop_up_close" id="close_order">
+                      &#10006
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+   <div class="container py-3">
+    <div class="row flex-lg-row-reverse align-items-center  ">
+      <!--div class="col-10 col-sm-8 col-lg-6"--> 
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+<!--div class="form-group"-->
+<p><label>Ваша оценка</label></p>
+
+<div class="star-rating">
+<div class="star-rating__wrap">
+<input class="star-rating__input" id="star-5" type="radio" name="rating" value="5">
+<label class="star-rating__ico fa fa-star-o fa-lg" for="star-5" title="Отлично"></label>
+<input class="star-rating__input" id="star-4" type="radio" name="rating" value="4">
+<label class="star-rating__ico fa fa-star-o fa-lg" for="star-4" title="Хорошо"></label>
+<input class="star-rating__input" id="star-3" type="radio" name="rating" value="3">
+<label class="star-rating__ico fa fa-star-o fa-lg" for="star-3" title="Удовлетворительно"></label>
+<input class="star-rating__input" id="star-2" type="radio" name="rating" value="2">
+<label class="star-rating__ico fa fa-star-o fa-lg" for="star-2" title="Плохо"></label>
+<input class="star-rating__input" id="star-1" type="radio" name="rating" value="1">
+<label class="star-rating__ico fa fa-star-o fa-lg" for="star-1" title="Ужасно"></label>
+</div>
+</div>
+</div>
+<!--/div-->
+<!--/div-->
+<div class ="my-3 p-3 bg-body rounded shadow-sm">
+<p>
+    <h6 class="border-bottom pb-2 mb-0">Отзывы</h6>
+    <div class="d-flex text-muted pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+
+      <p class="pb-3 mb-0 small lh-sm border-bottom">
+        <strong class="d-block text-gray-dark">@rainbow_dash</strong>
+       Хорошая компания! Все выполнили качественно!
+      </p>
+    </div>
+    <div class="d-flex text-muted pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+
+      <p class="pb-3 mb-0 small lh-sm border-bottom">
+        <strong class="d-block text-gray-dark">@pinkie_pie</strong>
+       Быстро убрали квартиру после вечеринки.
+      </p>
+    </div>
+    <div class="d-flex text-muted pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
+
+      <p class="pb-3 mb-0 small lh-sm border-bottom">
+        <strong class="d-block text-gray-dark">@fluttershy</strong>
+        Быстро и качественно.
+      </p>
+    </div>
+    <small class="d-block text-end mt-3">
+      <a href="#">All updates</a>
+    </small>
+  </div>
+  </p>
+  </div>
+  </div>
+  </div>
+  <script src="../js/orders.js"></script>
+  <script src="../js/main.js"></script>
+      </main>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>Золушка</title>
+
+    <link rel="stylesheet" href="css/update.css" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/my_page.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg"  style=" background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Золушка</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Компании</a>
+        </li>
+		
+	  </ul>
+    </div>
+    <form action="http://localhost:8000/orders" method="post">
+	<button type="submit" class ="nav-link" style="background-color:rgba(255, 255, 255, 0.01); border: none;
+  outline: none;">Заказы</button>
+  </form>
+	<a class ="nav-link" href="/updateform">Редактировать</a>
+	<a class ="nav-link" href="/log_out">Выйти</a>
+	
+	</div>
+</nav>
+</header>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css " rel ="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " ></script>
+
+<main>
+
+
+    <div class="container py-3">
+    <div class="row flex-lg-row-reverse align-items-center  ">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="uploads/{{executor.photo_link}}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">{{executor.name_company}}</h1>
+        <p class="lead">{{executor.description}}</p>
+        <p><h2 class="display-7 fw-bold"> Cписок районов обслуживания</h2></p>
+        {% for arlst in aria_list%}
+        <ul class="list-group">
+           <li class="list-group-item">{{arlst.name_aria}}</li>
+          </ul>
+        {% endfor %}
+<p><div class="accordion" id="list_aria">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOneArea">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneAria" aria-expanded="false" aria-controls="collapseOneAria">
+                 Добавить район обслуживания
+              </button>
+            </h2>
+            <div id="collapseOneAria" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form action="http://localhost:8000/add_aria_list" method="post" >
+                  <ul class="list-group">
+                    {%for ar in aria%}
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" name="id_aria" id="id_aria" value="{{ar.id_aria}}" aria-label="...">
+                      {{ar.name_aria}}
+                    </li>
+                    {% endfor %}
+                    </ul>
+                      <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Сохранить</button>
+                </form>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwoArea">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoArea" aria-expanded="false" aria-controls="collapseTwoArea">
+                Удалить район обслуживания
+              </button>
+            </h2>
+            <div id="collapseTwoArea" class="accordion-collapse collapse" aria-labelledby="headingTwoArea" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                 <form action="http://localhost:8000/delete_aria_list" method="post" >
+                  <ul class="list-group">
+                    {%for ar in aria%}
+                    <li class="list-group-item">
+                      <input class="form-check-input me-1" type="checkbox" name="id_aria" id="id_aria" value="{{ar.id_aria}}" aria-label="...">
+                      {{ar.name_aria}}
+                    </li>
+                    {% endfor %}
+                    </ul>
+                      <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Удалить</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+          </p>
+      </label>
+      
+      </p>
+		<p><h2 class="display-7 fw-bold ">Список услуг</h2>
+		<ul class="list-group">
+      {%for serv in service_list%}
+  <li class="list-group-item d-flex justify-content-between align-items-center">{{serv.name_services}}
+      <span class="badge bg-primary rounded-pill">{{serv.price}} руб/час</span>
+  </li>
+  {% endfor%}
+</ul>
+
+</p>
+
+
+
+<div class="accordion" id="list_services">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+         Выбрать услугу из списка
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <form action="http://localhost:8000/add_service_list" method="post" >
+          <label for="services" class="services-label">Выберите услугу</label>
+          <select class="form-control"  placeholder="Выберите услугу" name="id_services" id="id_services" >
+             {% for serv in services %}
+             <option value='{{serv.id_services}}'>{{serv.name_services}}</option>
+             {% endfor %}
+          </select>
+            <label>
+              Цена услуги</label>
+              <input type="number" class="form-control" id="price" name="price" value="100">
+              
+              
+                <label>Нажмите на кнопку, чтобы добавить услугу в ваш список</label>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" margin-top="10px">Сохранить</button>
+              
+              </form>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Добавить свою услугу
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <form action="http://localhost:8000/add_new_service_list" method="post" >
+        <label>
+          <p>Наименование услуги</p>
+          <input type="text" class="form-control"  name="name_services" id="name_services" placeholder="Вывоз мусора">
+          </label>
+          <label>
+          <p>Цена услуги</p>
+          <input type="number" class="form-control" id="price" name="price" placeholder="100">
+          </label>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <label>Нажмите на кнопку, чтобы добавить услугу в ваш список</label>
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" margin-top="10px">Сохранить</button>
+          </div>
+        </form> 
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Редактирование
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <form action="http://localhost:8000/update_service_list" method="post" >
+          <label for="services" class="services-label">Выберите услугу</label>
+          <select class="form-control"  placeholder="Выберите услугу" name="id_services" id="id_servicessc" >
+             {% for serv in service_list %}
+             <option value='{{serv.id_services}}'>{{serv.name_services}}</option>
+             {% endfor %}
+          </select>
+            <label>
+              Цена услуги</label>
+              <input type="number" class="form-control" id="price" name="price" placeholder="введите новую цену">
+              
+              
+                <label>Нажмите на кнопку, чтобы изменить цену </label>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" margin-top="10px">Сохранить</button>
+              
+              </form>
+    </div>
+  </div>
+</div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+        Удаление
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <form action="http://localhost:8000/delete_service_list" method="post" >
+          <ul class="list-group">
+            {%for s in service_list%}
+            <li class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" name="id_services" id="id_services" value="{{s.id_services}}" aria-label="...">
+              {{s.name_services}}
+            </li>
+            {% endfor %}
+            </ul>
+              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Сохранить</button>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+	</p>
+<p>
+<h2 class="display-7 fw-bold">Контакты</h2>
+<p> Телефон: {{executor.phone_number}}</p>
+<p>email:{{executor.email}}</p>
+</p>	
+       
+      </div>
+    </div>
+  </div>
+
+
+
+
+ 
+  </div>
+  </div>
+  <script src="js/update.js"></script>
+      </main>
+  </body>
+</html>
