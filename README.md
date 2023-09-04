@@ -36,7 +36,11 @@
 ![SearchResult](https://github.com/GrossuEvgenia/clining_portal/assets/70910919/9b7b80b0-f5b7-409f-9cb4-5e20b261eda0)
  
 Рис7 Результат поиска (параметры поиска отражены на рисунке 6)
+
+![inocompany](https://github.com/GrossuEvgenia/clining_portal/assets/70910919/df40d6e5-f47a-4c8b-8058-e5271f1a2c02)
  
 Рис8 Страница просмотра информации о компании
+
+![order](https://github.com/GrossuEvgenia/clining_portal/assets/70910919/f12f73ff-72b0-4fd3-96e3-5f0cf23f415f)
  
-Рис10 Оформление заказа 
+Рис9 Оформление заказа 
